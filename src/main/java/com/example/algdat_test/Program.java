@@ -18,7 +18,9 @@ public class Program
         Tabell.byttChar(c, 0, 5 );
         System.out.println(c);
 
-        System.out.println(Arrays.toString(Tabell.nestMaks(a)));
+        System.out.println(Arrays.toString(Tabell.antallNestMaks(a)));
+
+        System.out.println(Arrays.toString(Tabell.nestMaksTurnering(a)));
 
     } // main
 
