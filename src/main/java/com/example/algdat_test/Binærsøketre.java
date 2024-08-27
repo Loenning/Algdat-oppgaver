@@ -1,4 +1,5 @@
 package com.example.algdat_test;
+// Klasse for noder som lagrer verdi og referanse til venstre og høyre barnenode
 class Node{
     int verdi;
     Node venstre, høyre;
@@ -8,57 +9,49 @@ class Node{
         venstre = høyre = null;
     }
 }
-class BST{
+public class Binærsøketre {
     Node rot;
 
-    public BST(){
-        rot = null;
-    }
-
-    void insert(int verdi){
-        rot = insertRec(rot, verdi);
-    }
-
-    Node insertRec(Node rot, int verdi){
-        if (rot == null){
-            rot = new Node(verdi);
-            return rot;
+    private Node leggTilRek(Node thisnode, int verdi){
+        if(thisnode == null){
+            return new Node(verdi);
         }
-        if(verdi < rot.verdi){
-            rot.venstre = insertRec(rot.venstre, verdi);
-        } else if (verdi > rot.verdi) {
-            rot.høyre = insertRec(rot.høyre, verdi);
+
+        if (verdi < thisnode.verdi){
+            thisnode.venstre = leggTilRek(thisnode.venstre, verdi);
+        } else if (verdi > thisnode.verdi) {
+            thisnode.høyre = leggTilRek(thisnode.høyre, verdi);
+        } else {
+            return thisnode;
         }
-        return rot;
+        return thisnode;
     }
 
-    public void rekkefølge(){
-        rekkefølgeRec(rot);
-        System.out.println("\n");
+    public void leggTil(int verdi){
+        rot = leggTilRek(rot, verdi);
     }
 
-    public void rekkefølgeRec(Node rot){
-        if (rot != null){
-            rekkefølgeRec(rot.venstre);
-            System.out.print(rot.verdi + " ");
-            rekkefølgeRec(rot.høyre);
+    public Binærsøketre (int[] tabell){
+        int[] a = Tabell.randPerm(20);              // en tilfeldig tabell
+
+        for(int k : a){ // Legger til alle tall i tabellen til treet
+            leggTil(k);
         }
     }
-}
 
-public class Binærsøketre {
-    public static void main(String[] args) {
-        BST treet = new BST();
 
-        treet.insert(50);
-        treet.insert(30);
-        treet.insert(20);
-        treet.insert(40);
-        treet.insert(70);
-        treet.insert(60);
-        treet.insert(80);
-
-        System.out.println("Traversering i rekkefølge:");
-        treet.rekkefølge();
+    private boolean søkRekursjon(Node thisnode, int verdi){
+        if (thisnode == null){
+            return false;
+        }
+        if (verdi == thisnode.verdi){
+            return true;
+        }
+        return verdi < thisnode.verdi ? søkRekursjon(thisnode.venstre, verdi) : søkRekursjon(thisnode.høyre, verdi);
     }
+
+    public boolean søk(int verdi){
+        return søkRekursjon(rot, verdi);
+    }
+
 }
