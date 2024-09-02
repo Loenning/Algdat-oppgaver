@@ -33,6 +33,18 @@ public class Tabell     // Samleklasse for tabellmetoder
 
         return a;                        // permutasjonen returneres
     }
+
+    public static int[] generateRandomArray(int n, int size) {
+        int[] array = new int[size];
+        Random random = new Random();
+
+        for (int i = 0; i < size; i++) {
+            array[i] = random.nextInt(n + 1); // +1 for å inkludere n
+        }
+
+        return array;
+    }
+
     // Metoden randPerm(int[] a)                 Programkode 1.1.8 f)
 
     // Metoden maks(int[] a, int fra, int til)   Programkode 1.2.1 b)
