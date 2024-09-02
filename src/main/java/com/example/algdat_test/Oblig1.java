@@ -9,10 +9,11 @@ public class Oblig1 {
         int[] test = Tabell.generateRandomArray(10, 10); // Genererer array med tilfeldige tall
         // int[] test = {};                                   // Genererer tom liste
         System.out.println(Arrays.toString(test));
-        //Quicksort.quickSort(test);                         // Sorterer listen i stigende rekkefølge for testing i oppgaver
-        //System.out.println(Arrays.toString(test));
+        Quicksort.quickSort(test);                         // Sorterer listen i stigende rekkefølge for testing i oppgaver
+        System.out.println(Arrays.toString(test));
         //System.out.println(antallUlikeSortert(test));        // Beregner antall ulike verdier som finnes i en sortert tabell
-        System.out.println(antallUlikeUsortert(test));
+        System.out.println(antallUlikeSortert2(test));
+        //System.out.println(antallUlikeUsortert(test));      /Beregner antall ulike verdier som finnes i en usortert tabell
         //System.out.println(maks(test));
         //System.out.println(Arrays.toString(test));
         //System.out.println("Antall ombyttinger er: " + ombyttinger(test));
@@ -79,6 +80,27 @@ public class Oblig1 {
         return antall;
     }
 
+    public static int antallUlikeSortert2(int[] a) {
+        int antall = 0;
+        if (a.length == 0) {
+            return antall;
+        }
+        for (int i = 0; i < a.length; i++) {
+            boolean erUnik = true;
+            int verdi = a[i];
+            for (int j = i+1; j < a.length; j++) {
+                if (verdi == a[j]) {
+                    erUnik = false;
+                    break;
+                }
+            }
+            if (erUnik){
+                antall++;
+            }
+        }
+        return antall;
+    }
+
     // Oppgave 3
     public static int antallUlikeUsortert(int[] a) {
         int antall = 0;
@@ -100,4 +122,8 @@ public class Oblig1 {
         }
         return antall;
     }
+
+    // Oppgave 4
+
+
 }
