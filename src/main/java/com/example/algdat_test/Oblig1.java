@@ -6,14 +6,16 @@ import java.util.NoSuchElementException;
 public class Oblig1 {
     public static void main(String[] args) {
         //int [] test = Tabell.randPerm(10);               // Genrerer array med permutasjon av n-antall
-        int[] test = Tabell.generateRandomArray(10, 10); // Genererer array med tilfeldige tall
-        // int[] test = {};                                   // Genererer tom liste
+        int[] test = Tabell.generateRandomArray(-100, 100, 100000); // Genererer array med tilfeldige tall (kan både være positive og negative tall)
+        //int[] test = {};                                   // Genererer tom liste
+        //System.out.println(Arrays.toString(test));
+        //Quicksort.quickSort(test);                         // Sorterer listen i stigende rekkefølge for testing i oppgaver
+        //System.out.println(Arrays.toString(test));
+        //System.out.println(antallUlikeSortert(test));        // Oppgave 2 - Beregner antall ulike verdier som finnes i en sortert tabell
+        //System.out.println(antallUlikeSortert2(test));
+        //System.out.println(antallUlikeUsortert(test));      // Oppgave 3 - Beregner antall ulike verdier som finnes i en usortert tabell
+        delsortering(test);
         System.out.println(Arrays.toString(test));
-        Quicksort.quickSort(test);                         // Sorterer listen i stigende rekkefølge for testing i oppgaver
-        System.out.println(Arrays.toString(test));
-        //System.out.println(antallUlikeSortert(test));        // Beregner antall ulike verdier som finnes i en sortert tabell
-        System.out.println(antallUlikeSortert2(test));
-        //System.out.println(antallUlikeUsortert(test));      /Beregner antall ulike verdier som finnes i en usortert tabell
         //System.out.println(maks(test));
         //System.out.println(Arrays.toString(test));
         //System.out.println("Antall ombyttinger er: " + ombyttinger(test));
@@ -82,9 +84,6 @@ public class Oblig1 {
 
     public static int antallUlikeSortert2(int[] a) {
         int antall = 0;
-        if (a.length == 0) {
-            return antall;
-        }
         for (int i = 0; i < a.length; i++) {
             boolean erUnik = true;
             int verdi = a[i];
@@ -104,9 +103,6 @@ public class Oblig1 {
     // Oppgave 3
     public static int antallUlikeUsortert(int[] a) {
         int antall = 0;
-        if (a.length == 0) {
-            return antall;
-        }
         for (int i = 0; i < a.length; i++) {
             boolean erUnik = true;
             int verdi = a[i];
@@ -124,6 +120,24 @@ public class Oblig1 {
     }
 
     // Oppgave 4
-
-
+    public static void delsortering(int[] a){
+        int lengde = a.length;
+        int venstre = 0, høyre = lengde-1;
+        while (venstre < høyre){
+            while ((a[venstre] % 2) != 0 && venstre < høyre)
+                venstre++;
+            while ((a[høyre] % 2) == 0 && venstre < høyre)
+                høyre--;
+            if(venstre < høyre){
+                int temp = a[venstre];
+                a[venstre] = a[høyre];
+                a[høyre] = temp;
+                venstre++;
+                høyre--;
+            }
+        }
+        Arrays.sort(a, 0, venstre);
+        Arrays.sort(a, venstre, lengde);
+    }
 }
+
